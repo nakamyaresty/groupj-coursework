@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>UnitySave SACCO</title>
+  <style>
+    
+    * { /* Base or default styles for the whole page */
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #fef9ef;
+      color: #1a2a3a;
+      line-height: 1.5;
+    }
+
+    /* NAVBAR */
+    .top-bar {
+      position:fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #fffaf2;
+      border-bottom: 1px solid #e2d8cc;
+      z-index: 100;
+    }
+
+    .nav-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 65px;
+    }
+
+    .site-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      font-family: 'Georgia', serif;
+      text-decoration: none;
+      color: #2c3e2f;
+    }
+
+    .site-name span {
+      color: #b47c2e;
+    }
+
+    .nav-list {
+      display: flex;
+      gap: 30px;
+      list-style: none;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #3e4d5e;
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .nav-list a:hover {
+      color: #b47c2e;
+    }
+
+    .nav-btns {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-out {
+      border: 1px solid #ccc5b8;
+      background: transparent;
+      padding: 6px 18px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #2c3e2f;
+      font-size: 0.85rem;
+    }
+
+    .btn-gold {
+      background: #b47c2e;
+      border: none;
+      padding: 6px 22px;
+      border-radius: 30px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 26px;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .mobile-links {
+      display: none;
+      flex-direction: column;
+      background: #fffaf2;
+      padding: 15px 20px;
+      border-top: 1px solid #e6ddd0;
+    }
+
+    .mobile-links a {
+      padding: 10px 0;
+      text-decoration: none;
+      color: #2c3e2f;
+      border-bottom: 1px solid #efe5d8;
+    }
+
+    /* HERO */
+    .hero-area {
+      background: #1f3b33;
+      background-image: url('save.png');
+      background-size: cover;
+      margin-top: 65px;
+      padding: 80px 20px 70px;
+    }
+
+    .hero-box {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .hero-box h1 {
+      font-size: 2.8rem;
+      font-family: 'Georgia', serif;
+      color: white;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .hero-box h1 i {
+      color: #f3bc6c;
+      font-style: normal;
+    }
+
+    .hero-box p {
+      font-size: 1rem;
+      color: #d4d9ce;
+      max-width: 500px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn-solid {
+      background: #b47c2e;
+      padding: 10px 28px;
+      border-radius: 40px;
+      color: white;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .btn-light {
+      border: 2px solid rgba(255,245,215,0.7);
+      padding: 8px 26px;
+      border-radius: 40px;
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    /* SECTION STYLES */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 20px;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 45px;
+    }
+
+    .section-head small {
+      color: #b47c2e;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      font-family: 'Georgia', serif;
+      color: #1f2e3a;
+    }
+
+    /* CARDS GRID */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px 22px;
+      border: 1px solid #e9e0d4;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.02);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: #1f2e3a;
+    }
+
+    .card p {
+      color: #5f6c7c;
+      font-size: 0.88rem;
+      margin: 12px 0 18px;
+      line-height: 1.5;
+    }
+
+    .card-link {
+      text-decoration: none;
+      color: #b47c2e;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    /* How it works row */
+    .hiw-row {
+      background: #f0ebe3;
+      padding: 70px 20px;
+    }
+
+    .hiw-flex {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .hiw-left {
+      flex: 1;
+    }
+
+    .hiw-left .tag {
+      color: #b47c2e;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+    }
+
+    .hiw-left h2 {
+      font-size: 1.9rem;
+      font-family: 'Georgia', serif;
+      margin: 15px 0 25px;
+    }
+
+    .step-item {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 25px;
+    }
+
+    .step-number {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: #c9974b;
+      font-family: monospace;
+    }
+
+    .step-text h4 {
+      font-size: 1rem;
+      margin-bottom: 5px;
+    }
+
+    .step-text p {
+      font-size: 0.85rem;
+      color: #5b6674;
+    }
+
+    .hiw-right {
+      flex: 0.8;
+      background: #e2d6c8;
+      border-radius: 28px;
+      padding: 28px;
+      text-align: center;
+    }
+
+    .mock-box {
+      background: #1e2f2a;
+      padding: 20px;
+      border-radius: 18px;
+      color: #eee;
+      text-align: left;
+    }
+
+    /* TESTIMONIALS */
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 28px;
+    }
+
+    .testi {
+      background: white;
+      border-radius: 20px;
+      padding: 26px;
+      border: 1px solid #e7dfd3;
+    }
+
+    .testi.dark {
+      background: #1f2e3a;
+      color: #f0ede7;
+      border: none;
+    }
+
+    .testi p {
+      font-style: italic;
+      margin-bottom: 22px;
+      font-size: 0.9rem;
+    }
+
+    .person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-icon {
+      width: 42px;
+      height: 42px;
+      background: #b47c2e;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: white;
+    }
+
+    /* CTA */
+    .cta-block {
+      background: #c68b3c;
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .cta-block h2 {
+      font-size: 1.9rem;
+      font-family: 'Georgia', serif;
+      color: #1f2a2a;
+      margin-bottom: 12px;
+    }
+
+    .cta-block p {
+      margin-bottom: 28px;
+      color: #2c3a2f;
+    }
+
+    .btn-dark-solid {
+      background: #1f2e3a;
+      padding: 10px 32px;
+      border-radius: 40px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    .btn-out-dark {
+      border: 2px solid #1f2e3a;
+      background: transparent;
+      padding: 8px 28px;
+      border-radius: 40px;
+      text-decoration: none;
+      color: #1f2e3a;
+      font-weight: 600;
+      display: inline-block;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #0f1c20;
+      padding: 50px 20px 30px;
+      color: #bfc9cf;
+    }
+
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-col h4 {
+      color: #e2cfaa;
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+    }
+
+    .footer-col a, .footer-col span {
+      display: block;
+      color: #bfc9cf;
+      text-decoration: none;
+      font-size: 0.8rem;
+      margin-bottom: 10px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 35px;
+      margin-top: 35px;
+      border-top: 1px solid #253b3b;
+      font-size: 0.7rem;
+    }
+  </style>
+</head>
+<body>
+
+<div class="top-bar">
+  <div class="nav-wrap">
+    <a href="#" class="site-name">UnitySave <span>SACCO</span></a>
+    <ul class="nav-list">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <div class="nav-btns">
+      <a href="#" class="btn-out">Log in</a>
+      <a href="#" class="btn-gold">Join</a>
+    </div>
+    <button class="mobile-toggle" id="menuBtn">☰</button>
+  </div>
+  <div class="mobile-links" id="mobilePanel">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+    <a href="#">Log in</a>
+    <a href="#">Join</a>
+  </div>
+</div>
+
+<section class="hero-area">
+  <div class="hero-box">
+    <h1>Your Savings,<br/><i>Your Future.</i></h1>
+    <p>Transparent, digital-first cooperative for members who deserve more. Real-time access, no paperwork, full accountability.</p>
+    <div class="hero-buttons">
+      <a href="#" class="btn-solid">Open account</a>
+      <a href="#" class="btn-light">Member login →</a>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="section-head">
+    <h3 style="font-weight: bold; color: #b47c2e;">What we offer</h3>
+    <h2>Everything you need<br/>from one platform</h2>
+  </div>
+  <div class="cards">
+    <div class="card">
+      <h3>Savings Management</h3>
+      <p>Track deposits and withdrawals. View real-time balance and full history.</p>
+      <a href="#" class="card-link">Get started </a>
+    </div>
+    <div class="card">
+      <h3>Loan Services</h3>
+      <p>Apply online, check approval status, manage repayments without queues.</p>
+      <a href="#" class="card-link">Apply now </a>
+    </div>
+    <div class="card">
+      <h3>Financial Reports</h3>
+      <p>Access statements and performance reports. Full cooperative transparency.</p>
+      <a href="#" class="card-link">View reports </a>
+    </div>
+    <div class="card">
+      <h3>Smart Notifications</h3>
+      <p>Instant alerts for transactions, loan updates and announcements.</p>
+      <a href="#" class="card-link">Learn more </a>
+    </div>
+    <div class="card">
+      <h3>Secure & Transparent</h3>
+      <p>Your data is protected with full audit trails and accountability.</p>
+      <a href="#" class="card-link">Our commitment </a>
+    </div>
+    <div class="card">
+      <h3>Access Anywhere</h3>
+      <p>Log in from phone, tablet or computer. No office visits required.</p>
+      <a href="#" class="card-link">Sign up free </a>
+    </div>
+  </div>
+</div>
+
+<div class="hiw-row">
+  <div class="hiw-flex">
+    <div class="hiw-left">
+      <h2 style="font-weight: bold; color: #b47c2e;">How it works</h2>
+      <h2>Three steps to financial freedom</h2>
+      <div class="step-item">
+        <div class="step-number">01</div>
+        <div class="step-text"><h4>Register your account</h4><p>Fill online form and create secure password in minutes.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">02</div>
+        <div class="step-text"><h4>Start saving</h4><p>Make deposits and watch savings grow. Every transaction visible.</p></div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">03</div>
+        <div class="step-text"><h4>Access loans & reports</h4><p>Apply online, track progress, download statements anytime.</p></div>
+      </div>
+      <a href="#" class="btn-gold" style="display: inline-block; margin-top: 12px;">Create account →</a>
+    </div>
+   
+  </div>
+</div>
+
+<div class="container">
+  <div class="section-head">
+    <h2 style="font-weight: bold; color: #b47c2e;">Member stories</small>
+    <h2>Trusted by thousands<br/>across Uganda</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi">
+      <p>“I can check my savings balance from my phone anytime. No more traveling just for a statement. UnitySave changed everything.”</p>
+      <div class="person">
+        <div class="avatar-icon">MS</div>
+        <div><strong>Magawa Solomon</strong><br/><span style="font-size: 0.7rem;">Member since 2021</span></div>
+      </div>
+    </div>
+    <div class="testi dark">
+      <p>“Getting a loan used to take weeks. Now I applied online, got approval in two days. Absolutely amazing.”</p>
+      <div class="person">
+        <div class="avatar-icon">MB</div>
+        <div><strong>Maiso Gaius</strong><br/><span style="font-size: 0.7rem;">Member since 2019</span></div>
+      </div>
+    </div>
+    <div class="testi">
+      <p>“The transparency is what I value most. I see every transaction and report. It built real trust.”</p>
+      <div class="person">
+        <div class="avatar-icon">NR</div>
+        <div><strong>Nakamya Resty</strong><br/><span style="font-size: 0.7rem;">Member since 2020</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="cta-block">
+  <h2>Ready to take control<br/>of your finances?</h2>
+  <p>Join over 4,200 members already saving with UnitySave SACCO.</p>
+  <div>
+    <a href="#" class="btn-dark-solid">Join free today</a>
+    <a href="#" class="btn-out-dark">Talk to us</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <h4 style="color:#e2cfaa;">UnitySave SACCO</h4>
+      <p style="font-size:0.8rem;">Empowering Ugandans through transparent digital finance.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Platform</h4>
+      <a href="#">Member Login</a>
+      <a href="#">Register</a>
+      <a href="#">Dashboard</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Contact</a>
+      <a href="#">FAQ</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <span>Group J</span>
+      <span>+256 700 123 456</span>
+      <span>Victoria University</span>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>2026 UnitySave SACCO. All rights reserved. | Licensed by Bank of Uganda</p>
+  </div>
+</footer>
+
+
+</body>
+</html>
